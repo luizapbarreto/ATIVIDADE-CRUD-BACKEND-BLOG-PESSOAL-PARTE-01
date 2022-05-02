@@ -61,4 +61,9 @@ public class PostagemController {
     public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
         return repository.findById(postagem.getId()).map(resposta-> ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem))).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+	
+	@GetMapping("/titulo/{titulo}")
+    public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
+        return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
+    }
 }
